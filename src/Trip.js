@@ -1,6 +1,6 @@
 class Trip{
     constructor(){
-        this.id = tripID;
+        this.id = Date.now();
         this.userID = id;
         this.destinationID = destinationID;
         this.travelers = travelers;
@@ -8,7 +8,6 @@ class Trip{
         this.duration = duration;
         this.status = 'pending';
         this.suggestedActivities = [];
-
     }
 }
 

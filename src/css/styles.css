@@ -1,3 +1,36 @@
 body {
+  margin: 0px;
   background: radial-gradient(circle, rgba(63,94,251,1) 0%, rgba(252,70,107,1) 100%);
+}
+.top-page {
+  border: 1px solid black;
+  height: 40vh;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.container-form {
+  display: flex;
+  flex-direction: row;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-button {
+  margin-left: 15px;
+  margin-top: 18px;
+  height: 20px;
+  width: 80px;
+}
+
+.bottom-page {
+  border: 1px solid black;
+  height: 60vh;
+  width: 100%;
 }

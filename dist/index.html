@@ -4,13 +4,35 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Webpack Starter Kit</title>
+  <link rel="stylesheet" href="../src/css/styles.css">
+  <title>CA Travel Tracker</title>
 </head>
 <body>
-  <img src="./images/turing-logo.png" alt="turing logo">
-  
+  <main>
+    <section class="login-page" id="loginPage">
+    </section>
+    <section class="top-page" id="topPage">
+      <h1>CA Travel Tracker</h1>
+      <p>Welcome Cami! Where do you want to go next?</p>
+      <container class="container-form" id="containerForm">
+        <label>Date</label>
+        <input> 
+        <label># of Days</label>
+        <input> 
+        <label># of Travelers</label>
+        <input> 
+        <label>Destination</label>
+        <input> 
+        <button class="form-button" id="formButton"></button>
+      </container>
+      <p>You've spent $0 on trips this year!</p>
+    </section>
+    <section class="bottom-page" id="bottomPage">
+      <div class="trip-cards" id="trips-cards"></div>
+    </section>
+  </main>
+  <!-- <img src="./images/turing-logo.png" alt="turing logo"> -->
   <!-- Do not include the scripts.js or class files here - it is done by the webpack server -->
   <script src="bundle.js"></script>
-
 </body>
 </html>

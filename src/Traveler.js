@@ -1,3 +1,5 @@
+import Destination from '../src/Destination';
+
 class Traveler{
     constructor(travelersData){
         this.id = travelersData.id;
@@ -67,6 +69,15 @@ class Traveler{
             return tripDate > start && tripDate < end;
         });
         return tripsBetweenDates;
+    }
+
+    getTotalSpentTrips(destinationData, date) {
+        const currentDate = new Date(date);
+        const yearStart = `${currentDate.getFullYear()}/01/01`;
+        const yearEnd = `${currentDate.getFullYear()}/12/31`;
+        const tripsInOneYear = this.getTripsBetweenDates(yearStart, yearEnd);
+        const destination = new Destination(destinationData);
+        return destination.getTotalCost(tripsInOneYear);
     }
 }
 

@@ -1,6 +1,7 @@
 import { expect } from 'chai';
 import Traveler from '../src/Traveler';
 import travelersData from '../test/data/Traveler-sample-data.js';
+import destinationData from '../test/data/Destination-sample-data.js';
 import tripsData from '../test/data/Trip-sample-data.js';
 
 describe('Traveler', () => {
@@ -49,7 +50,7 @@ describe('Traveler', () => {
     it('should get all users trips', function () {
         traveler1.getUserTrips(tripsData);
         traveler2.getUserTrips(tripsData);
-        // expect(traveler1.getUserTrips(tripsData)).to.be.an("array");
+        expect(traveler1.trips).to.be.an("array");
         expect(traveler1.trips).to.deep.equal([{
             "id": 5,
             "userID": 1,
@@ -98,5 +99,12 @@ describe('Traveler', () => {
         expect(traveler3.getTripsBetweenDates("2022/05/31", "2022/06/31")).to.be.an("array");
         expect(traveler3.getTripsBetweenDates("2022/05/31", "2022/06/31")).to.deep.equal([traveler3.trips[1]]);
         expect(traveler4.getTripsBetweenDates("2022/05/31", "2022/06/31")).to.deep.equal([traveler4.trips[0]]);
+    });
+    it('should get total spent in one year', function () {
+        traveler3.getUserTrips(tripsData);
+        traveler4.getUserTrips(tripsData);
+        expect(traveler3.getTotalSpentTrips(destinationData, "2022/06/05")).to.be.a("number");
+        expect(traveler3.getTotalSpentTrips(destinationData, "2022/06/31")).to.deep.equal(30338);
+        expect(traveler4.getTotalSpentTrips(destinationData, "2022/06/31")).to.deep.equal(20262);
     });
 })

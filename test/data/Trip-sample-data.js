@@ -102,7 +102,7 @@ const tripsData = [
     {
     "id": 11,
     "userID": 6,
-    "destinationID": 50,
+    "destinationID": 8,
     "travelers": 6,
     "date": "2022/04/23",
     "duration": 10,
@@ -112,7 +112,7 @@ const tripsData = [
     {
     "id": 12,
     "userID": 6,
-    "destinationID": 8,
+    "destinationID": 2,
     "travelers": 2,
     "date": "2022/06/05",
     "duration": 17,
@@ -122,7 +122,7 @@ const tripsData = [
     {
     "id": 13,
     "userID": 6,
-    "destinationID": 12,
+    "destinationID": 6,
     "travelers": 6,
     "date": "2022/12/02",
     "duration": 9,
@@ -132,7 +132,7 @@ const tripsData = [
     {
     "id": 14,
     "userID": 7,
-    "destinationID": 18,
+    "destinationID": 5,
     "travelers": 3,
     "date": "2022/06/05",
     "duration": 15,
@@ -142,7 +142,7 @@ const tripsData = [
     {
     "id": 15,
     "userID": 7,
-    "destinationID": 49,
+    "destinationID": 2,
     "travelers": 4,
     "date": "2022/04/25",
     "duration": 11,
@@ -152,7 +152,7 @@ const tripsData = [
     {
     "id": 16,
     "userID": 7,
-    "destinationID": 25,
+    "destinationID": 1,
     "travelers": 2,
     "date": "2022/12/23",
     "duration": 10,

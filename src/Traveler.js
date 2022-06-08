@@ -1,8 +1,8 @@
 class Traveler{
-    constructor(id, name, travelerType){
-        this.id = id;
-        this.name = name;
-        this.travelerType = travelerType;
+    constructor(travelersData){
+        this.id = travelersData.id;
+        this.name = travelersData.name;
+        this.travelerType = travelersData.travelerType;
         this.trips = [];
     }
 
@@ -13,19 +13,27 @@ class Traveler{
 
     displayFirstName(){
         const firstName = this.name.split(" ");
-        return fistName[0];
+        return firstName[0];
     }
 
-    getUserTrips(trips) {
-        this.trips = trips.filter((trip) => trip.userID === this.id);
+    getUserTrips(tripsData) {
+        this.trips = tripsData.filter((trip) => trip.userID === this.id);
     }
 
     getCurrentTrips(date) {
         const currentTrips = this.trips.filter((trip) => {
             return trip.date === date;
         });
-
         return currentTrips;
+    }
+
+    getPastTrips(date) {
+        const todayDate = new Date(date);
+        const pastTrips = this.trips.filter((trip) => {
+            let dateOfTrip = new Date(trip.date);
+            return dateOfTrip < todayDate;
+        });
+        return pastTrips;
     }
 
     getFutureTrips(date) {

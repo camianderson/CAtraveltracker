@@ -15,6 +15,7 @@ var currentTraveler;
 window.addEventListener('load', loadData);
 var welcomeGreeting = document.getElementById('welcome');
 var totalSpent = document.getElementById('totalSpent');
+var tripCards = document.getElementById("tripsCards");
 
 
 // ****** fetch GET ******
@@ -23,7 +24,7 @@ function loadData () {
         travelerData = data[0].travelers;
         tripsData = data[1].trips;
         destinationData = data[2].destinations;
-        createTraveler(50);
+        createTraveler(2);
     });
 }
 
@@ -33,6 +34,7 @@ function createTraveler(id){
     const traveler = travelerData.find(traveler => traveler.id === id);
     currentTraveler = new Traveler(traveler);
     greetUser();
+    displayTrips();
 }
 
 function greetUser(){
@@ -49,3 +51,30 @@ function updateTotalSpentOnTrips(date){
     console.log(currentTraveler.trips)
     totalSpent.innerText = `You've spent $${total} on trips this year!`
 }
+
+function displayTrips() {
+    tripCards.innerHTML = "";
+    const sortedTrips = currentTraveler.trips.sort(
+      (first, last) => new Date(last.date) - new Date(first.date)
+    );
+    sortedTrips.forEach((trip) => {
+        destinationData.forEach((location) => {
+        if (trip.destinationID === location.id) {
+          let color = trip.status === "approved" ? "teal" : "pink";
+          tripCards.innerHTML += `
+          <div class="card" tabindex="0" id="${trip.id}">
+            <div class="card-header">
+              <img src=${location.image} alt=${location.alt}/>
+            </div>
+            <div class="card-body">
+              <p class="tag font-med tag-${color}" >${trip.status}</p>
+              <p>${location.destination}</p>
+              <p>Date: ${trip.date}</p>
+              <p># of Travelers: ${trip.travelers}</p>
+              <p># of Days: ${trip.duration}</p>
+            </div>
+          </div>`;
+        }
+      });
+    });
+  }

@@ -24,7 +24,7 @@ function loadData () {
         travelerData = data[0].travelers;
         tripsData = data[1].trips;
         destinationData = data[2].destinations;
-        createTraveler(50);
+        createTraveler(2);
     });
 }
 
@@ -67,11 +67,11 @@ function displayTrips() {
               <img src=${location.image} alt=${location.alt}/>
             </div>
             <div class="card-body">
-              <p class="tag font-med tag-${color}" >status: ${trip.status}</p>
+              <p class="tag font-med tag-${color}" >${trip.status}</p>
               <p>${location.destination}</p>
-              <p>Trip Date: ${trip.date}</p>
-              <p>Travelers: ${trip.travelers}</p>
-              <p>Days: ${trip.duration}</p>
+              <p>Date: ${trip.date}</p>
+              <p># of Travelers: ${trip.travelers}</p>
+              <p># of Days: ${trip.duration}</p>
             </div>
           </div>`;
         }

@@ -32,7 +32,75 @@ body {
 }
 
 .bottom-page {
-  border: 1px solid black;
   height: 60vh;
   width: 100%;
+}
+
+.trip-cards {
+  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: repeat(4, 24vw [col-start]);
+  grid-template-rows: repeat(1, 58vh [row-start]);
+  justify-items: center;
+  align-items: center;
+}
+
+.card {
+  background-color: white;
+  border-radius: 10px;
+  overflow: hidden;
+  width: 20vw;
+  transition: transform .5s;
+}
+
+.card:hover {
+  transform: scale(1.1);
+}
+
+.card-no-hover {
+  margin: 11px;
+  background-color: white;
+  overflow: hidden;
+  width: 20vw;
+}
+
+.card-header img {
+  width: 100%;
+  height: 120px;
+  object-fit: cover;
+}
+.card-body {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  padding: 5%;
+  min-height: 30vh;
+}
+
+.tag {
+  background: #cccccc;
+  border-radius: 50px;
+  font-size: 2vh;
+  margin: 0;
+  color: #fff;
+  padding: 2px 10px;
+  text-transform: uppercase;
+}
+
+.tag-teal {
+  background-color: #007c8a;
+}
+
+.tag-purple {
+  background-color: #5e76bf;
+}
+
+.tag-pink {
+  background-color: #d71499;
+}
+
+.card-body p {
+  font-size: initial;
+  font-weight: 800;
 }

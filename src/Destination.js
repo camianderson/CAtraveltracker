@@ -15,7 +15,8 @@ class Destination {
             });
             return acc;
         }, 0);
-        return Number(totalCost.toFixed(2));
+        const total = Math.ceil(totalCost,1)
+        return total.toLocaleString("en-US");
     }
 
     getDestinationByID(destinationId) {

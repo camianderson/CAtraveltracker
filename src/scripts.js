@@ -15,7 +15,9 @@ var currentTraveler;
 window.addEventListener('load', loadData);
 var welcomeGreeting = document.getElementById('welcome');
 var totalSpent = document.getElementById('totalSpent');
-var tripCards = document.getElementById("tripsCards");
+var tripCards = document.getElementById('tripsCards');
+var inputDestination = document.getElementById('inputDestination');
+var formButton = document.getElementById('formButton');
 
 
 // ****** fetch GET ******
@@ -35,6 +37,7 @@ function createTraveler(id){
     currentTraveler = new Traveler(traveler);
     greetUser();
     displayTrips();
+    populateOptions();
 }
 
 function greetUser(){
@@ -76,5 +79,12 @@ function displayTrips() {
           </div>`;
         }
       });
+    });
+  }
+
+  function populateOptions() {
+    inputDestination.innerHTML = `<option value="" disabled selected>Select a destination</option>`;
+    destinationData.forEach((place) => {
+      inputDestination.innerHTML += `<option value="${place.id}" >${place.destination}</option>`;
     });
   }

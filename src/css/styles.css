@@ -1,18 +1,25 @@
 body {
   margin: 0px;
-  background: #eff7fa
+  background: #f7f2f7;
 }
 
 .top-page {
-  background-image: url("https://images.unsplash.com/photo-1443632864897-14973fa006cf?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2070&q=80");
+  background-image: url("https://images8.alphacoders.com/465/thumb-1920-465667.jpg");
   background-repeat: no-repeat;
-  border: 1px solid black;
   height: 40vh;
   width: 100%;
   display: flex;
   flex-direction: column;
   justify-content: space-around;
   align-items: center;
+  font-family: helvetica;
+  font-size: 20px;
+  color: #f7f2f7;
+}
+
+h1 {
+  font-family: courier;
+  font-size: 35px;
 }
 
 .container-form {
@@ -23,21 +30,39 @@ body {
 .form {
   display: flex;
   flex-direction: column;
+  align-items: center;
+}
+
+.label {
+  margin-bottom: -1px;
+}
+
+.destination {
+  margin-top: 3px;
+  height: 21px;
+  width: 200px;
 }
 
 .form-button {
-  margin-left: 15px;
-  margin-top: 18px;
-  height: 20px;
-  width: 80px;
+  margin-left: 10px;
+  margin-top: 40px;
+  background-color: #EDE3FF;
+  border-radius: 8px;
+  border-style: none;
+  color: #39254D;
+  cursor: pointer;
+  font-size: 15px;
+  font-weight: 800;
+  height: 30px;
 }
 
 .bottom-page {
   height: 60vh;
   width: 100%;
+  font-family: helvetica;
 }
 
-.trip-cards,.new-trip-card {
+.trip-cards {
   flex-wrap: wrap;
   display: grid;
   grid-template-columns: repeat(4, 24vw [col-start]);
@@ -46,15 +71,15 @@ body {
   align-items: center;
 }
 
-/* .new-trip-container {
+.new-trip-container {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
-} */
+}
 
 .card {
-  background-color: white;
+  background-color: #e9e2ed;
   border-radius: 10px;
   overflow: hidden;
   width: 20vw;
@@ -114,11 +139,15 @@ body {
   font-weight: 800;
 }
 
-.button-style {
-  display: flex;
-  flex-direction: row;
-  justify-content: flex-start;
-  align-items: center;
+.submit-new-trip-button, .cancel-new-trip-button{
+  background-color: #5e76bf;
+  border-radius: 8px;
+  border-style: none;
+  color: #FFFFFF;
+  cursor: pointer;
+  font-size: 18px;
+  height: 40px;
+  padding: 10px 16px;
 }
 
 .hidden {

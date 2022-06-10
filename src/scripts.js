@@ -1,5 +1,4 @@
 import './css/styles.css';
-import './images/turing-logo.png'
 import {getData, postData} from './apiCalls';
 import Traveler from './Traveler';
 import Trip from './Trip';

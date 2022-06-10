@@ -16,19 +16,25 @@
       <p id="welcome">Welcome Cami! Where do you want to go next?</p>
       <container class="container-form" id="containerForm">
         <div class="form">
-          <label>Date</label>
-          <input class="date" type="date" id="inputDate" required>
+          <p class="label">Date</p>
+          <label for="trip-start-date">'
+            <input class="date" type="date" id="inputDate" required>
+          </label>
         </div>
         <div class="form">
-          <label># of Days</label>
-          <input class="number" type="number" value="1" min="1" id="inputDuration"> 
+          <p class="label"># of Days</p>
+          <label for="number-of-days">
+            <input class="number" type="number" value="1" min="1" id="inputDuration"> 
+          </label>
         </div>
         <div class="form">
-          <label># of Travelers</label>
-          <input class="number" type="number" value="1" min="1" id="inputTravelers"> 
+          <p class="label"># of Travelers</p>
+          <label for="number-of-travelers">
+            <input class="number" type="number" value="1" min="1" id="inputTravelers">
+          </label>
         </div>
         <div class="form">
-          <label>Destination</label>
+          <p class="label">Destination</p>
           <select class="destination" id="inputDestination"></select>
         </div>
         <button class="form-button" aria-label="confirm new trip" id="formButton">Let's Go!</button>

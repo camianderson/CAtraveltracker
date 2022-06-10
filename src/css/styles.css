@@ -37,7 +37,7 @@ body {
   width: 100%;
 }
 
-.trip-cards,.new-trip-container {
+.trip-cards,.new-trip-card {
   flex-wrap: wrap;
   display: grid;
   grid-template-columns: repeat(4, 24vw [col-start]);
@@ -45,6 +45,13 @@ body {
   justify-items: center;
   align-items: center;
 }
+
+/* .new-trip-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+} */
 
 .card {
   background-color: white;
@@ -107,12 +114,12 @@ body {
   font-weight: 800;
 }
 
-/* .button-style {
+.button-style {
   display: flex;
   flex-direction: row;
-  justify-content: space-evenly;
+  justify-content: flex-start;
   align-items: center;
-} */
+}
 
 .hidden {
   display: none;

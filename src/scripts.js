@@ -22,7 +22,10 @@ var inputDuration = document.getElementById('inputDuration');
 var inputTravelers = document.getElementById('inputTravelers');
 var inputDestination = document.getElementById('inputDestination');
 var formButton = document.getElementById('formButton');
-var newTripContainer = document.getElementById('newTripContainer')
+var newTripContainer = document.getElementById('newTripContainer');
+var newTripCard = document.getElementById('newTripCard');
+var confirmButton = document.getElementById('submitNewTrip');
+var cancelButton = document.getElementById('cancelButton');
 
 
 // ****** event listener ******
@@ -31,7 +34,8 @@ formButton.addEventListener('click', (event) => {
     createNewTrip();
     showNewTripRequest(newTrip);
 })
-
+// confirmButton.addEventListener('click',postNewTrip)
+cancelButton.addEventListener('click', cancelNewTrip)
 
 // ****** fetch GET ******
 function loadData () {
@@ -134,12 +138,17 @@ function displayTrips() {
     newTripContainer.classList.remove('hidden');
   }
 
+  function displayCardsContainer(){
+    tripCards.classList.remove('hidden');
+    newTripContainer.classList.add('hidden');
+  }
+
   function createNewTripCard(){
     destinationData.forEach((place) => {
         if (newTrip.destinationID === place.id) {
           let color = newTrip.status === "approved" ? "teal" : "pink";
           const cost = displayNewTripCost()
-          newTripContainer.innerHTML = `
+          newTripCard.innerHTML = `
           <div class="card-no-hover" tabindex="0" id="${newTrip.id}">
             <div class="card-header">
               <img src=${place.image} alt=${place.alt}/>
@@ -151,15 +160,6 @@ function displayTrips() {
               <p>Date: ${newTrip.date}</p>
               <p># of Travelers: ${newTrip.travelers}</p>
               <p># of Days: ${newTrip.duration}</p>
-              <div class="button-style">
-                <button class="submit-new-trip-button" type="submit" aria-label="confirm booking for new trip" id="submitNewTrip">
-                Confirm
-                </button>
-                <button class="cancel-new-trip-button" type="button" aria-label="cancel booking for new trip" id="cancelButton">
-                Cancel
-                </button>
-              </div>
-            </div>
           </div>`;
         }
     })
@@ -167,4 +167,8 @@ function displayTrips() {
 
   function postNewTrip(){
 
+  }
+
+  function cancelNewTrip(){
+    displayCardsContainer();
   }

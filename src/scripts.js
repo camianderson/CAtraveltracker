@@ -55,6 +55,7 @@ function createTraveler(id){
     greetUser();
     displayTrips();
     populateOptions();
+    currentTraveler.findLastTripId(tripsData)
 }
 
 function greetUser(){
@@ -68,7 +69,6 @@ function updateTotalSpentOnTrips(date){
     let dest = new Destination(destinationData);
     let total = dest.getTotalCost(currentTraveler.trips);
     // let total = currentTraveler.getTotalSpentTrips(destinationData, date);
-    console.log(currentTraveler.trips)
     totalSpent.innerText = `You've spent $${total} on trips this year!`
 }
 
@@ -107,12 +107,14 @@ function displayTrips() {
   }
 
   function createNewTrip(){
-    const date = inputDate.value;
+    let date = inputDate.value;
     const duration = inputDuration.value;
     const travelers = inputTravelers.value;
     const destination = inputDestination.value;
+    const id = currentTraveler.findLastTripId(tripsData) + 1;
+    date = date.split('-').join('/');
     var info = {
-        id: parseInt(204),
+        id: parseInt(id),
         userID: parseInt(50),
         destinationID: parseInt(destination),
         travelers: parseInt(travelers),
@@ -121,7 +123,7 @@ function displayTrips() {
         status: "pending",
         suggestedActivities: []
         };
-    newTrip = new Trip(info)
+    newTrip = info;
   }
 
   function showNewTripRequest() {

@@ -82,7 +82,6 @@ class Traveler{
     }
 
     createNewTripValue(newTripInfo, destinationData) {
-        console.log(newTripInfo)
         this.newTrip.push(newTripInfo);
         let subTotal = destinationData.reduce((sum, place) => {
           if (newTripInfo.destinationID === place.id) {
@@ -94,6 +93,11 @@ class Traveler{
         }, 0);
         let result = subTotal * 1.1;
         return result.toFixed(2);
+    }
+
+    findLastTripId(tripsData){
+        const sortedTripData = tripsData.sort((lower, higher) => higher.id - lower.id);
+        return sortedTripData[0].id;
     }
 }
 

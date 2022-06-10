@@ -26,7 +26,6 @@ class Destination {
 
     getDestinationByName(destinationName) {
         const destination = this.destinations.find((destination) => destination.destination === destinationName);
-        console.log(destinationName)
         return destination;
     }
 }

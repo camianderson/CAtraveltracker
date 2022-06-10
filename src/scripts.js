@@ -22,6 +22,8 @@ var inputDuration = document.getElementById('inputDuration');
 var inputTravelers = document.getElementById('inputTravelers');
 var inputDestination = document.getElementById('inputDestination');
 var formButton = document.getElementById('formButton');
+var newTripContainer = document.getElementById('newTripContainer')
+
 
 // ****** event listener ******
 formButton.addEventListener('click', (event) => {
@@ -29,6 +31,7 @@ formButton.addEventListener('click', (event) => {
     createNewTrip();
     showNewTripRequest(newTrip);
 })
+
 
 // ****** fetch GET ******
 function loadData () {
@@ -117,29 +120,51 @@ function displayTrips() {
     newTrip = new Trip(info)
   }
 
-  function showNewTripRequest(newTrip) {
-    destinationData.forEach((place) => {
-      if (newTrip.destinationID === location.id) {
-        let color = newTrip.status === "approved" ? "teal" : "pink";
-        const cost = displayNewTripCost()
-        // newTrip.innerHTML = `
-        // <p>Estimated Cost: ${cost}</p>
-        // <div class="card-no-hover" tabindex="0" id="${newTrip.id}">
-        //   <div class="card-header">
-        //     <img src=${place.image} alt=${place.alt}/>
-        //   </div>
-        //   <div class="card-body">
-        //     <p class="tag tag-${color}" >${newTrip.status}</p>
-        //     <p>${place.destination}</p>
-        //     <p>Date: ${newTrip.date}</p>
-        //     <p># of Travelers: ${newTrip.travelers}</p>
-        //     <p># of Days: ${newTrip.duration}</p>
-        //   </div>
-        // </div>`;
-      }
-    });
+  function showNewTripRequest() {
+    displayNewTripContainer()
+    createNewTripCard()
   }
 
   function displayNewTripCost() {
     return currentTraveler.createNewTripValue(newTrip, destinationData);
+  }
+
+  function displayNewTripContainer(){
+    tripCards.classList.add('hidden');
+    newTripContainer.classList.remove('hidden');
+  }
+
+  function createNewTripCard(){
+    destinationData.forEach((place) => {
+        if (newTrip.destinationID === place.id) {
+          let color = newTrip.status === "approved" ? "teal" : "pink";
+          const cost = displayNewTripCost()
+          newTripContainer.innerHTML = `
+          <div class="card-no-hover" tabindex="0" id="${newTrip.id}">
+            <div class="card-header">
+              <img src=${place.image} alt=${place.alt}/>
+            </div>
+            <div class="card-body">
+              <p>Estimated Cost: $${cost}</p>
+              <p class="tag tag-${color}" >${newTrip.status}</p>
+              <p>${place.destination}</p>
+              <p>Date: ${newTrip.date}</p>
+              <p># of Travelers: ${newTrip.travelers}</p>
+              <p># of Days: ${newTrip.duration}</p>
+              <div class="button-style">
+                <button class="submit-new-trip-button" type="submit" aria-label="confirm booking for new trip" id="submitNewTrip">
+                Confirm
+                </button>
+                <button class="cancel-new-trip-button" type="button" aria-label="cancel booking for new trip" id="cancelButton">
+                Cancel
+                </button>
+              </div>
+            </div>
+          </div>`;
+        }
+    })
+  }
+
+  function postNewTrip(){
+
   }

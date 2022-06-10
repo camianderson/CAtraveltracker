@@ -17,19 +17,19 @@
       <container class="container-form" id="containerForm">
         <div class="form">
           <label>Date</label>
-          <input>
+          <input class="date" type="date" id="inputDate" required>
         </div>
         <div class="form">
           <label># of Days</label>
-          <input> 
+          <input class="number" type="number" value="1" min="1" id="inputDuration"> 
         </div>
         <div class="form">
           <label># of Travelers</label>
-          <input> 
+          <input class="number" type="number" value="1" min="1" id="inputTravelers"> 
         </div>
         <div class="form">
           <label>Destination</label>
-          <input> 
+          <select class="destination" id="inputDestination"></select>
         </div>
         <button class="form-button" id="formButton">Let's Go!</button>
       </container>
@@ -37,6 +37,7 @@
     </section>
     <section class="bottom-page" id="bottomPage">
       <div class="trip-cards" id="tripsCards"></div>
+      <div class="new-trip-container hidden" id="newTripContainer"></div>
     </section>
   </main>
   <!-- <img src="./images/turing-logo.png" alt="turing logo"> -->

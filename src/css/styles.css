@@ -2,6 +2,7 @@ body {
   margin: 0px;
   background: #eff7fa
 }
+
 .top-page {
   background-image: url("https://images.unsplash.com/photo-1443632864897-14973fa006cf?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2070&q=80");
   background-repeat: no-repeat;
@@ -36,7 +37,7 @@ body {
   width: 100%;
 }
 
-.trip-cards {
+.trip-cards,.new-trip-container {
   flex-wrap: wrap;
   display: grid;
   grid-template-columns: repeat(4, 24vw [col-start]);
@@ -59,6 +60,7 @@ body {
 
 .card-no-hover {
   margin: 11px;
+  border-radius: 10px;
   background-color: white;
   overflow: hidden;
   width: 20vw;
@@ -103,4 +105,15 @@ body {
 .card-body p {
   font-size: initial;
   font-weight: 800;
+}
+
+/* .button-style {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  align-items: center;
+} */
+
+.hidden {
+  display: none;
 }

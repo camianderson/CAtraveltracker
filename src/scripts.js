@@ -10,12 +10,27 @@ var travelerData;
 var tripsData;
 var destinationData;
 var currentTraveler;
+var newTrip;
 
-// ****** event listeners ******
+// ****** query selector ******
 window.addEventListener('load', loadData);
 var welcomeGreeting = document.getElementById('welcome');
 var totalSpent = document.getElementById('totalSpent');
-var tripCards = document.getElementById("tripsCards");
+var tripCards = document.getElementById('tripsCards');
+var inputDate = document.getElementById('inputDate');
+var inputDuration = document.getElementById('inputDuration');
+var inputTravelers = document.getElementById('inputTravelers');
+var inputDestination = document.getElementById('inputDestination');
+var formButton = document.getElementById('formButton');
+var newTripContainer = document.getElementById('newTripContainer')
+
+
+// ****** event listener ******
+formButton.addEventListener('click', (event) => {
+    event.preventDefault();
+    createNewTrip();
+    showNewTripRequest(newTrip);
+})
 
 
 // ****** fetch GET ******
@@ -35,6 +50,7 @@ function createTraveler(id){
     currentTraveler = new Traveler(traveler);
     greetUser();
     displayTrips();
+    populateOptions();
 }
 
 function greetUser(){
@@ -77,4 +93,78 @@ function displayTrips() {
         }
       });
     });
+  }
+
+  function populateOptions() {
+    inputDestination.innerHTML = `<option value="" disabled selected>Select a destination</option>`;
+    destinationData.forEach((place) => {
+      inputDestination.innerHTML += `<option value="${place.id}" >${place.destination}</option>`;
+    });
+  }
+
+  function createNewTrip(){
+    const date = inputDate.value;
+    const duration = inputDuration.value;
+    const travelers = inputTravelers.value;
+    const destination = inputDestination.value;
+    var info = {
+        id: parseInt(204),
+        userID: parseInt(50),
+        destinationID: parseInt(destination),
+        travelers: parseInt(travelers),
+        date: date,
+        duration: parseInt(duration),
+        status: "pending",
+        suggestedActivities: []
+        };
+    newTrip = new Trip(info)
+  }
+
+  function showNewTripRequest() {
+    displayNewTripContainer()
+    createNewTripCard()
+  }
+
+  function displayNewTripCost() {
+    return currentTraveler.createNewTripValue(newTrip, destinationData);
+  }
+
+  function displayNewTripContainer(){
+    tripCards.classList.add('hidden');
+    newTripContainer.classList.remove('hidden');
+  }
+
+  function createNewTripCard(){
+    destinationData.forEach((place) => {
+        if (newTrip.destinationID === place.id) {
+          let color = newTrip.status === "approved" ? "teal" : "pink";
+          const cost = displayNewTripCost()
+          newTripContainer.innerHTML = `
+          <div class="card-no-hover" tabindex="0" id="${newTrip.id}">
+            <div class="card-header">
+              <img src=${place.image} alt=${place.alt}/>
+            </div>
+            <div class="card-body">
+              <p>Estimated Cost: $${cost}</p>
+              <p class="tag tag-${color}" >${newTrip.status}</p>
+              <p>${place.destination}</p>
+              <p>Date: ${newTrip.date}</p>
+              <p># of Travelers: ${newTrip.travelers}</p>
+              <p># of Days: ${newTrip.duration}</p>
+              <div class="button-style">
+                <button class="submit-new-trip-button" type="submit" aria-label="confirm booking for new trip" id="submitNewTrip">
+                Confirm
+                </button>
+                <button class="cancel-new-trip-button" type="button" aria-label="cancel booking for new trip" id="cancelButton">
+                Cancel
+                </button>
+              </div>
+            </div>
+          </div>`;
+        }
+    })
+  }
+
+  function postNewTrip(){
+
   }

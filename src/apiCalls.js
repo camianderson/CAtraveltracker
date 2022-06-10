@@ -9,6 +9,12 @@ export let postData = (dataType, newTrip) => {
     method: "POST",
     body: JSON.stringify(newTrip),
     headers: { "Content-Type": "application/json" },
+  }).then(response => {
+    if (!response.ok) {
+      throw new Error('please fill in all the fields');
+    } else {
+      return response.json();
+    }
   }).catch((error) => {
     console.warn(error.message);
   });

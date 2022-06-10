@@ -1,6 +1,6 @@
 import './css/styles.css';
 import './images/turing-logo.png'
-import {getData} from './apiCalls';
+import {getData, postData} from './apiCalls';
 import Traveler from './Traveler';
 import Trip from './Trip';
 import Destination from './Destination';
@@ -34,8 +34,8 @@ formButton.addEventListener('click', (event) => {
     createNewTrip();
     showNewTripRequest(newTrip);
 })
-// confirmButton.addEventListener('click',postNewTrip)
-cancelButton.addEventListener('click', cancelNewTrip)
+confirmButton.addEventListener('click', postNewTrip);
+cancelButton.addEventListener('click', cancelNewTrip);
 
 // ****** fetch GET ******
 function loadData () {
@@ -166,7 +166,11 @@ function displayTrips() {
   }
 
   function postNewTrip(){
-
+    postData("trips", newTrip);
+    currentTraveler.trips.push(newTrip);
+    displayTrips();
+    greetUser()
+    displayCardsContainer();
   }
 
   function cancelNewTrip(){

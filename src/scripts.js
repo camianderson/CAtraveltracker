@@ -1,6 +1,6 @@
 import './css/styles.css';
 import './images/turing-logo.png'
-import {getData} from './apiCalls';
+import {getData, postData} from './apiCalls';
 import Traveler from './Traveler';
 import Trip from './Trip';
 import Destination from './Destination';
@@ -22,7 +22,10 @@ var inputDuration = document.getElementById('inputDuration');
 var inputTravelers = document.getElementById('inputTravelers');
 var inputDestination = document.getElementById('inputDestination');
 var formButton = document.getElementById('formButton');
-var newTripContainer = document.getElementById('newTripContainer')
+var newTripContainer = document.getElementById('newTripContainer');
+var newTripCard = document.getElementById('newTripCard');
+var confirmButton = document.getElementById('submitNewTrip');
+var cancelButton = document.getElementById('cancelButton');
 
 
 // ****** event listener ******
@@ -31,7 +34,8 @@ formButton.addEventListener('click', (event) => {
     createNewTrip();
     showNewTripRequest(newTrip);
 })
-
+confirmButton.addEventListener('click', postNewTrip);
+cancelButton.addEventListener('click', cancelNewTrip);
 
 // ****** fetch GET ******
 function loadData () {
@@ -51,6 +55,7 @@ function createTraveler(id){
     greetUser();
     displayTrips();
     populateOptions();
+    currentTraveler.findLastTripId(tripsData)
 }
 
 function greetUser(){
@@ -64,7 +69,6 @@ function updateTotalSpentOnTrips(date){
     let dest = new Destination(destinationData);
     let total = dest.getTotalCost(currentTraveler.trips);
     // let total = currentTraveler.getTotalSpentTrips(destinationData, date);
-    console.log(currentTraveler.trips)
     totalSpent.innerText = `You've spent $${total} on trips this year!`
 }
 
@@ -103,12 +107,14 @@ function displayTrips() {
   }
 
   function createNewTrip(){
-    const date = inputDate.value;
+    let date = inputDate.value;
     const duration = inputDuration.value;
     const travelers = inputTravelers.value;
     const destination = inputDestination.value;
+    const id = currentTraveler.findLastTripId(tripsData) + 1;
+    date = date.split('-').join('/');
     var info = {
-        id: parseInt(204),
+        id: parseInt(id),
         userID: parseInt(50),
         destinationID: parseInt(destination),
         travelers: parseInt(travelers),
@@ -117,7 +123,7 @@ function displayTrips() {
         status: "pending",
         suggestedActivities: []
         };
-    newTrip = new Trip(info)
+    newTrip = info;
   }
 
   function showNewTripRequest() {
@@ -134,12 +140,17 @@ function displayTrips() {
     newTripContainer.classList.remove('hidden');
   }
 
+  function displayCardsContainer(){
+    tripCards.classList.remove('hidden');
+    newTripContainer.classList.add('hidden');
+  }
+
   function createNewTripCard(){
     destinationData.forEach((place) => {
         if (newTrip.destinationID === place.id) {
           let color = newTrip.status === "approved" ? "teal" : "pink";
           const cost = displayNewTripCost()
-          newTripContainer.innerHTML = `
+          newTripCard.innerHTML = `
           <div class="card-no-hover" tabindex="0" id="${newTrip.id}">
             <div class="card-header">
               <img src=${place.image} alt=${place.alt}/>
@@ -151,20 +162,19 @@ function displayTrips() {
               <p>Date: ${newTrip.date}</p>
               <p># of Travelers: ${newTrip.travelers}</p>
               <p># of Days: ${newTrip.duration}</p>
-              <div class="button-style">
-                <button class="submit-new-trip-button" type="submit" aria-label="confirm booking for new trip" id="submitNewTrip">
-                Confirm
-                </button>
-                <button class="cancel-new-trip-button" type="button" aria-label="cancel booking for new trip" id="cancelButton">
-                Cancel
-                </button>
-              </div>
-            </div>
           </div>`;
         }
     })
   }
 
   function postNewTrip(){
+    postData("trips", newTrip);
+    currentTraveler.trips.push(newTrip);
+    displayTrips();
+    greetUser()
+    displayCardsContainer();
+  }
 
+  function cancelNewTrip(){
+    displayCardsContainer();
   }

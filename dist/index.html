@@ -31,13 +31,23 @@
           <label>Destination</label>
           <select class="destination" id="inputDestination"></select>
         </div>
-        <button class="form-button" id="formButton">Let's Go!</button>
+        <button class="form-button" aria-label="confirm new trip" id="formButton">Let's Go!</button>
       </container>
       <p id="totalSpent">You've spent $0 on trips this year!</p>
     </section>
     <section class="bottom-page" id="bottomPage">
       <div class="trip-cards" id="tripsCards"></div>
-      <div class="new-trip-container hidden" id="newTripContainer"></div>
+      <div class="new-trip-container hidden" id="newTripContainer">
+        <div class="new-trip-card" id="newTripCard"></div>
+        <div class="button-style">
+          <button class="submit-new-trip-button" type="submit" aria-label="confirm booking for new trip" id="submitNewTrip">
+            Confirm
+          </button>
+          <button class="cancel-new-trip-button" type="button" aria-label="cancel booking for new trip" id="cancelButton">
+            Cancel
+          </button>
+        </div>
+      </div>
     </section>
   </main>
   <!-- <img src="./images/turing-logo.png" alt="turing logo"> -->

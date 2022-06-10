@@ -10,15 +10,25 @@ var travelerData;
 var tripsData;
 var destinationData;
 var currentTraveler;
+var newTrip;
 
-// ****** event listeners ******
+// ****** query selector ******
 window.addEventListener('load', loadData);
 var welcomeGreeting = document.getElementById('welcome');
 var totalSpent = document.getElementById('totalSpent');
 var tripCards = document.getElementById('tripsCards');
+var inputDate = document.getElementById('inputDate');
+var inputDuration = document.getElementById('inputDuration');
+var inputTravelers = document.getElementById('inputTravelers');
 var inputDestination = document.getElementById('inputDestination');
 var formButton = document.getElementById('formButton');
 
+// ****** event listener ******
+formButton.addEventListener('click', (event) => {
+    event.preventDefault();
+    createNewTrip();
+    showNewTripRequest(newTrip);
+})
 
 // ****** fetch GET ******
 function loadData () {
@@ -87,4 +97,49 @@ function displayTrips() {
     destinationData.forEach((place) => {
       inputDestination.innerHTML += `<option value="${place.id}" >${place.destination}</option>`;
     });
+  }
+
+  function createNewTrip(){
+    const date = inputDate.value;
+    const duration = inputDuration.value;
+    const travelers = inputTravelers.value;
+    const destination = inputDestination.value;
+    var info = {
+        id: parseInt(204),
+        userID: parseInt(50),
+        destinationID: parseInt(destination),
+        travelers: parseInt(travelers),
+        date: date,
+        duration: parseInt(duration),
+        status: "pending",
+        suggestedActivities: []
+        };
+    newTrip = new Trip(info)
+  }
+
+  function showNewTripRequest(newTrip) {
+    destinationData.forEach((place) => {
+      if (newTrip.destinationID === location.id) {
+        let color = newTrip.status === "approved" ? "teal" : "pink";
+        const cost = displayNewTripCost()
+        // newTrip.innerHTML = `
+        // <p>Estimated Cost: ${cost}</p>
+        // <div class="card-no-hover" tabindex="0" id="${newTrip.id}">
+        //   <div class="card-header">
+        //     <img src=${place.image} alt=${place.alt}/>
+        //   </div>
+        //   <div class="card-body">
+        //     <p class="tag tag-${color}" >${newTrip.status}</p>
+        //     <p>${place.destination}</p>
+        //     <p>Date: ${newTrip.date}</p>
+        //     <p># of Travelers: ${newTrip.travelers}</p>
+        //     <p># of Days: ${newTrip.duration}</p>
+        //   </div>
+        // </div>`;
+      }
+    });
+  }
+
+  function displayNewTripCost() {
+    return currentTraveler.createNewTripValue(newTrip, destinationData);
   }

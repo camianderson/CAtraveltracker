@@ -6,6 +6,7 @@ class Traveler{
         this.name = travelersData.name;
         this.travelerType = travelersData.travelerType;
         this.trips = [];
+        this.newTrip = [];
     }
 
     getUser(travelerData, userID) {
@@ -78,6 +79,21 @@ class Traveler{
         const tripsInOneYear = this.getTripsBetweenDates(yearStart, yearEnd);
         const destination = new Destination(destinationData);
         return destination.getTotalCost(tripsInOneYear);
+    }
+
+    createNewTripValue(newTripInfo, destinationData) {
+        console.log(newTripInfo)
+        this.newTrip.push(newTripInfo);
+        let subTotal = destinationData.reduce((sum, place) => {
+          if (newTripInfo.destinationID === place.id) {
+            let lodging = place.estimatedLodgingCostPerDay * newTripInfo.travelers * newTripInfo.duration;
+            let flights = (place.estimatedFlightCostPerPerson * newTripInfo.travelers) * 2;
+            sum += lodging + flights;
+          }
+          return sum;
+        }, 0);
+        let result = subTotal * 1.1;
+        return result.toFixed(2);
     }
 }
 

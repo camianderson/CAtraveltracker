@@ -17,28 +17,31 @@
       <container class="container-form" id="containerForm">
         <div class="form">
           <p class="label">Date</p>
-          <label for="trip-start-date">'
-            <input class="date" type="date" id="inputDate" required>
+          <label for="tripStartDate" aria-label="trip start date">'
+            <input class="trip-start-date" name="tripStartDate" type="date" id="inputDate" required>
           </label>
         </div>
         <div class="form">
           <p class="label"># of Days</p>
-          <label for="number-of-days">
-            <input class="number" type="number" value="1" min="1" id="inputDuration"> 
+          <label for="numberOfDays" aria-label="number of days">
+            <input class="number-of-days" name="numberOfDays" type="number" value="1" min="1" id="inputDuration" required> 
           </label>
         </div>
         <div class="form">
           <p class="label"># of Travelers</p>
-          <label for="number-of-travelers">
-            <input class="number" type="number" value="1" min="1" id="inputTravelers">
+          <label for="numberOfTravelers" aria-label="number of traveles">
+            <input class="number-of-travelers" name="numberOfTravelers" type="number" value="1" min="1" id="inputTravelers" required>
           </label>
         </div>
         <div class="form">
           <p class="label">Destination</p>
-          <select class="destination" id="inputDestination"></select>
+          <label for="destination" aria-label="destination of the trip">
+            <select class="destination" name="destination" id="inputDestination"></select>
+          </label>
         </div>
         <button class="form-button" aria-label="confirm new trip" id="formButton">Let's Go!</button>
       </container>
+      <p id="errorMessage"></p>
       <p id="totalSpent">You've spent $0 on trips this year!</p>
     </section>
     <section class="bottom-page" id="bottomPage">

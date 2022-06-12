@@ -25,13 +25,19 @@ var newTripContainer = document.getElementById('newTripContainer');
 var newTripCard = document.getElementById('newTripCard');
 var confirmButton = document.getElementById('submitNewTrip');
 var cancelButton = document.getElementById('cancelButton');
+var errorMessage = document.getElementById('errorMessage');
 
 
 // ****** event listener ******
 formButton.addEventListener('click', (event) => {
+  if(inputDate.value === '' || inputDestination.value === ''){
+    errorMessage.innerText = 'Fill all the spaces!';
+  } else{
     event.preventDefault();
     createNewTrip();
     showNewTripRequest(newTrip);
+    errorMessage.innerText = '';
+  }
 })
 confirmButton.addEventListener('click', postNewTrip);
 cancelButton.addEventListener('click', cancelNewTrip);
@@ -170,10 +176,19 @@ function displayTrips() {
     postData("trips", newTrip);
     currentTraveler.trips.push(newTrip);
     displayTrips();
-    greetUser()
+    greetUser();
+    clearNewTripForm();
     displayCardsContainer();
   }
 
   function cancelNewTrip(){
+    clearNewTripForm();
     displayCardsContainer();
+  }
+
+  function clearNewTripForm(){
+    inputDate.value = '';
+    inputDuration.value = 1;
+    inputTravelers.value = 1;
+    inputDestination.value ='';
   }

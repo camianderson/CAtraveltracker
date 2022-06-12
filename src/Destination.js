@@ -1,6 +1,6 @@
 class Destination {
     constructor(destinationData){
-        this.destinations = destinationData
+        this.destinations = destinationData;
     }
 
     getTotalCost(trips) {
@@ -15,8 +15,7 @@ class Destination {
             });
             return acc;
         }, 0);
-        const total = Math.ceil(totalCost,1)
-        return total.toLocaleString("en-US");
+        return totalCost;
     }
 
     getDestinationByID(destinationId) {

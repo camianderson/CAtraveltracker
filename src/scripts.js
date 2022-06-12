@@ -83,9 +83,18 @@ function updateTotalSpentOnTrips(date){
     currentTraveler.getUserTrips(tripsData);
     let dest = new Destination(destinationData);
     let total = dest.getTotalCost(currentTraveler.trips);
-    console.log(currentTraveler.trips)
-    // let total = currentTraveler.getTotalSpentTrips(destinationData, date);
     totalSpent.innerText = `You've spent $${total} on trips this year!`
+}
+
+function updateTotalSpentOnTripsNewTrip(){
+  currentTraveler.getUserTrips(tripsData);
+  let dest = new Destination(destinationData);
+  let total = dest.getTotalCost(currentTraveler.trips);
+  const newTripTotal = dest.getTotalCost(currentTraveler.newTrip);
+  let totalAfterNewTrip = (total + newTripTotal).toLocaleString("en-US");
+  console.log(totalAfterNewTrip)
+  // let total = currentTraveler.getTotalSpentTrips(destinationData, date);
+  totalSpent.innerText = `You've spent $${totalAfterNewTrip} on trips this year!`
 }
 
 function displayTrips() {
@@ -188,7 +197,7 @@ function displayTrips() {
     console.log(postData("trips", newTrip))
     currentTraveler.trips.push(newTrip);
     displayTrips();
-    greetUser();
+    updateTotalSpentOnTripsNewTrip();
     clearNewTripForm();
     displayCardsContainer();
   }

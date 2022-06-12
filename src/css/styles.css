@@ -75,7 +75,8 @@ h1 {
 }
 
 .bottom-page {
-  height: 60vh;
+  background-color: #f7f2f7;
+  height: 110vh;
   width: 100%;
   font-family: helvetica;
 }

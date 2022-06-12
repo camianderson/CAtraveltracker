@@ -10,6 +10,7 @@ var tripsData;
 var destinationData;
 var currentTraveler;
 var newTrip;
+var userId;
 
 // ****** query selector ******
 window.addEventListener('load', loadData);
@@ -26,7 +27,12 @@ var newTripCard = document.getElementById('newTripCard');
 var confirmButton = document.getElementById('submitNewTrip');
 var cancelButton = document.getElementById('cancelButton');
 var errorMessage = document.getElementById('errorMessage');
-
+var loginPage = document.getElementById('loginPage');
+var topMainPage = document.getElementById('topPage');
+var bottomMainPage = document.getElementById('bottomPage');
+var inputUsername = document.getElementById('inputUsername');
+var inputPassword = document.getElementById('inputPassword');
+var loginButton = document.getElementById('loginButton');
 
 // ****** event listener ******
 formButton.addEventListener('click', (event) => {
@@ -41,6 +47,7 @@ formButton.addEventListener('click', (event) => {
 })
 confirmButton.addEventListener('click', postNewTrip);
 cancelButton.addEventListener('click', cancelNewTrip);
+loginButton.addEventListener('click', validateLogin);
 
 // ****** fetch GET ******
 function loadData () {
@@ -48,7 +55,8 @@ function loadData () {
         travelerData = data[0].travelers;
         tripsData = data[1].trips;
         destinationData = data[2].destinations;
-        createTraveler(2);
+        // validateLogin()
+        createTraveler(50);
     });
 }
 
@@ -60,7 +68,7 @@ function createTraveler(id){
     greetUser();
     displayTrips();
     populateOptions();
-    currentTraveler.findLastTripId(tripsData)
+    currentTraveler.findLastTripId(tripsData);
 }
 
 function greetUser(){
@@ -193,4 +201,20 @@ function displayTrips() {
     inputDestination.value ='';
   }
 
-  
+  function displayMainPage(){
+    loginPage.classList.add('hidden');
+    topMainPage.classList.remove('hidden');
+    bottomMainPage.classList.remove('hidden');
+  }
+
+  function validateLogin(){
+    let user = inputUsername.value
+    console.log(user)
+    if(inputPassword.value === "travel" && inputUsername.value === "traveler50"){
+      event.preventDefault();
+      createTraveler(2);
+      displayMainPage();
+    } else{
+      window.alert("Incorrect Username or Password! Try again")
+    }
+  }

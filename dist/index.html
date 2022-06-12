@@ -10,8 +10,17 @@
 <body>
   <main>
     <section class="login-page" id="loginPage">
+      <div class="login-container">
+        <h1 class="login-logo">CA Travel Tracker</h1>
+        <h2 class="login-sentence">Let's Travel!</h2>
+        <form class="login-form">
+          <input id="inputUsername" type="text" value="" placeholder="user id" required></input>
+          <input id="inputPassword" type="password" value="" placeholder="password" required></input>
+          <button id="loginButton">login</button>
+        </form>  
+      </div>
     </section>
-    <section class="top-page" id="topPage">
+    <section class="top-page hidden" id="topPage">
       <h1>CA Travel Tracker</h1>
       <p id="welcome">Welcome Cami! Where do you want to go next?</p>
       <container class="container-form" id="containerForm">
@@ -44,7 +53,7 @@
       <p id="errorMessage"></p>
       <p id="totalSpent">You've spent $0 on trips this year!</p>
     </section>
-    <section class="bottom-page" id="bottomPage">
+    <section class="bottom-page hidden" id="bottomPage">
       <div class="trip-cards" id="tripsCards"></div>
       <div class="new-trip-container hidden" id="newTripContainer">
         <div class="new-trip-card" id="newTripCard"></div>

@@ -192,3 +192,5 @@ function displayTrips() {
     inputTravelers.value = 1;
     inputDestination.value ='';
   }
+
+  

@@ -37,10 +37,9 @@ describe('Traveler', () => {
         expect(traveler1.trips).to.deep.equal([]);
         expect(traveler2.trips).to.deep.equal([]);
     });
-    it('should get user', function () {
-        expect(traveler1.getUser(travelersData, 1)).to.be.a("object");
-        expect(traveler1.getUser(travelersData, 1)).to.equal(travelersData[0]);
-        expect(traveler2.getUser(travelersData, 3)).to.equal(travelersData[2]);
+    it("should start with travelers new trips as an empty array", () => {
+        expect(traveler1.newTrip).to.deep.equal([]);
+        expect(traveler2.newTrip).to.deep.equal([]);
     });
     it('should display first name', function () {
         expect(traveler1.displayFirstName()).to.be.a("string");
@@ -63,48 +62,26 @@ describe('Traveler', () => {
             }]);
         expect(traveler2.trips).to.deep.equal([]);
     });
-    it('should get current trips', function () {
+    it('should get new trip value', function () {
         traveler3.getUserTrips(tripsData);
         traveler4.getUserTrips(tripsData);
-        expect(traveler3.getCurrentTrips("2022/06/05")).to.be.an("array");
-        expect(traveler3.getCurrentTrips("2022/06/05")).to.deep.equal([traveler3.trips[1]]);
-        expect(traveler4.getCurrentTrips("2022/06/05")).to.deep.equal([traveler4.trips[0]]);
+        expect(traveler3.createNewTripValue(traveler3.trips[0], destinationData)).to.be.a("string");
+        expect(traveler3.createNewTripValue(traveler3.trips[0], destinationData)).to.equal("21450.00");
+        expect(traveler4.createNewTripValue(traveler4.trips[0], destinationData)).to.equal("11715.00");
     });
-
-    it('should get past trips', function () {
+    it("should have a new trip in the array", () => {
         traveler3.getUserTrips(tripsData);
         traveler4.getUserTrips(tripsData);
-        expect(traveler3.getPastTrips("2022/06/05")).to.be.an("array");
-        expect(traveler3.getPastTrips("2022/06/05")).to.deep.equal([traveler3.trips[0]]);
-        expect(traveler4.getPastTrips("2022/06/05")).to.deep.equal([traveler4.trips[1]]);
+        traveler3.createNewTripValue(traveler3.trips[0], destinationData);
+        traveler4.createNewTripValue(traveler4.trips[0], destinationData);
+        expect(traveler3.newTrip).to.deep.equal([traveler3.trips[0]]);
+        expect(traveler4.newTrip).to.deep.equal([traveler4.trips[0]]);
     });
-
-    it('should get future trips', function () {
+    it('should find last trip id', function () {
         traveler3.getUserTrips(tripsData);
         traveler4.getUserTrips(tripsData);
-        expect(traveler3.getFutureTrips("2022/06/05")).to.be.an("array");
-        expect(traveler3.getFutureTrips("2022/06/05")).to.deep.equal([traveler3.trips[2]]);
-        expect(traveler4.getFutureTrips("2022/06/05")).to.deep.equal([traveler4.trips[2]]);
-    });
-    it('should get pending trips', function () {
-        traveler1.getUserTrips(tripsData);
-        traveler2.getUserTrips(tripsData);
-        expect(traveler1.getPendingTrips()).to.be.an("array");
-        expect(traveler1.getPendingTrips()).to.deep.equal([traveler1.trips[0]]);
-        expect(traveler2.getPendingTrips()).to.deep.equal([]);
-    });
-    it('should get trips in between dates', function () {
-        traveler3.getUserTrips(tripsData);
-        traveler4.getUserTrips(tripsData);
-        expect(traveler3.getTripsBetweenDates("2022/05/31", "2022/06/31")).to.be.an("array");
-        expect(traveler3.getTripsBetweenDates("2022/05/31", "2022/06/31")).to.deep.equal([traveler3.trips[1]]);
-        expect(traveler4.getTripsBetweenDates("2022/05/31", "2022/06/31")).to.deep.equal([traveler4.trips[0]]);
-    });
-    it('should get total spent in one year', function () {
-        traveler3.getUserTrips(tripsData);
-        traveler4.getUserTrips(tripsData);
-        expect(traveler3.getTotalSpentTrips(destinationData, "2022/06/05")).to.be.a("number");
-        expect(traveler3.getTotalSpentTrips(destinationData, "2022/06/31")).to.deep.equal(30338);
-        expect(traveler4.getTotalSpentTrips(destinationData, "2022/06/31")).to.deep.equal(20262);
+        expect(traveler3.findLastTripId(traveler3.trips)).to.be.a("number");
+        expect(traveler3.findLastTripId(traveler3.trips)).to.equal(13);
+        expect(traveler4.findLastTripId(traveler4.trips)).to.equal(16);
     });
 })

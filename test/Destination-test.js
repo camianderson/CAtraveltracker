@@ -13,6 +13,9 @@ describe('Destination', () => {
     it('should be a function', function () {
         expect(Destination).to.be.a('function');
     });
+    it('should be able to have destinations', function () {
+        expect(destination.destinations).to.equal(destinationData);
+    });
     it('should get a yearly total cost of trips', function () {
         const traveler1 = new Traveler(travelersData[5]);
         const traveler2 = new Traveler(travelersData[6]);

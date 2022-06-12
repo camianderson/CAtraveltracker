@@ -11,28 +11,30 @@ var destinationData;
 var currentTraveler;
 var newTrip;
 var userId;
+var todayDate;
 
 // ****** query selector ******
 window.addEventListener('load', loadData);
-var welcomeGreeting = document.getElementById('welcome');
-var totalSpent = document.getElementById('totalSpent');
-var tripCards = document.getElementById('tripsCards');
-var inputDate = document.getElementById('inputDate');
-var inputDuration = document.getElementById('inputDuration');
-var inputTravelers = document.getElementById('inputTravelers');
-var inputDestination = document.getElementById('inputDestination');
-var formButton = document.getElementById('formButton');
-var newTripContainer = document.getElementById('newTripContainer');
-var newTripCard = document.getElementById('newTripCard');
-var confirmButton = document.getElementById('submitNewTrip');
-var cancelButton = document.getElementById('cancelButton');
-var errorMessage = document.getElementById('errorMessage');
-var loginPage = document.getElementById('loginPage');
-var topMainPage = document.getElementById('topPage');
-var bottomMainPage = document.getElementById('bottomPage');
-var inputUsername = document.getElementById('inputUsername');
-var inputPassword = document.getElementById('inputPassword');
-var loginButton = document.getElementById('loginButton');
+const welcomeGreeting = document.getElementById('welcome');
+const totalSpent = document.getElementById('totalSpent');
+const tripCards = document.getElementById('tripsCards');
+const inputDate = document.getElementById('inputDate');
+const inputDuration = document.getElementById('inputDuration');
+const inputTravelers = document.getElementById('inputTravelers');
+const inputDestination = document.getElementById('inputDestination');
+const formButton = document.getElementById('formButton');
+const newTripContainer = document.getElementById('newTripContainer');
+const newTripCard = document.getElementById('newTripCard');
+const confirmButton = document.getElementById('submitNewTrip');
+const cancelButton = document.getElementById('cancelButton');
+const errorMessage = document.getElementById('errorMessage');
+const loginPage = document.getElementById('loginPage');
+const topMainPage = document.getElementById('topPage');
+const bottomMainPage = document.getElementById('bottomPage');
+const inputUsername = document.getElementById('inputUsername');
+const inputPassword = document.getElementById('inputPassword');
+const loginButton = document.getElementById('loginButton');
+const errorLogin = document.getElementById('errorLogin');
 
 // ****** event listener ******
 formButton.addEventListener('click', (event) => {
@@ -44,7 +46,7 @@ formButton.addEventListener('click', (event) => {
     showNewTripRequest(newTrip);
     errorMessage.innerText = '';
   }
-})
+});
 confirmButton.addEventListener('click', postNewTrip);
 cancelButton.addEventListener('click', cancelNewTrip);
 loginButton.addEventListener('click', validateLogin);
@@ -60,7 +62,6 @@ function loadData () {
 }
 
 // ****** functions ******
-
 function createTraveler(id){
     const traveler = travelerData.find(traveler => traveler.id === id);
     currentTraveler = new Traveler(traveler);
@@ -73,13 +74,16 @@ function createTraveler(id){
 function greetUser(){
     const traveler = currentTraveler.displayFirstName();
     welcomeGreeting.innerText = `Welcome ${traveler}! Where do you want to go next?`;
-    updateTotalSpentOnTrips('2022/12/05');
+    let date = new Date();
+    todayDate = [date.getFullYear(), date.getMonth()+1, date.getDate()].join('/');
+    updateTotalSpentOnTrips(todayDate);
 }
 
 function updateTotalSpentOnTrips(date){
     currentTraveler.getUserTrips(tripsData);
     let dest = new Destination(destinationData);
     let total = dest.getTotalCost(currentTraveler.trips);
+    console.log(currentTraveler.trips)
     // let total = currentTraveler.getTotalSpentTrips(destinationData, date);
     totalSpent.innerText = `You've spent $${total} on trips this year!`
 }
@@ -127,7 +131,7 @@ function displayTrips() {
     date = date.split('-').join('/');
     var info = {
         id: parseInt(id),
-        userID: parseInt(50),
+        userID: parseInt(userId),
         destinationID: parseInt(destination),
         travelers: parseInt(travelers),
         date: date,
@@ -181,6 +185,7 @@ function displayTrips() {
 
   function postNewTrip(){
     postData("trips", newTrip);
+    console.log(postData("trips", newTrip))
     currentTraveler.trips.push(newTrip);
     displayTrips();
     greetUser();
@@ -208,13 +213,13 @@ function displayTrips() {
 
   function validateLogin(){
     let user = inputUsername.value;
-    user = parseInt(user[8]+user[9]);
-    console.log(user)
-    if(inputPassword.value === "travel" && inputUsername.value === `traveler${user}`){
+    userId = parseInt(user[8]+user[9]);
+    if(inputPassword.value === "travel" && inputUsername.value === `traveler${userId}`){
       event.preventDefault();
-      createTraveler(user);
+      createTraveler(userId);
       displayMainPage();
-    } else{
-      window.alert("Incorrect Username or Password! Try again")
+    } else {
+      event.preventDefault();
+      errorLogin.innerText = "Incorrect Username or Password! Try again!"
     }
   }

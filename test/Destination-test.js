@@ -13,14 +13,17 @@ describe('Destination', () => {
     it('should be a function', function () {
         expect(Destination).to.be.a('function');
     });
+    it('should be able to have destinations', function () {
+        expect(destination.destinations).to.equal(destinationData);
+    });
     it('should get a yearly total cost of trips', function () {
         const traveler1 = new Traveler(travelersData[5]);
         const traveler2 = new Traveler(travelersData[6]);
         traveler1.getUserTrips(tripsData);
         traveler2.getUserTrips(tripsData);
-        expect(destination.getTotalCost(traveler1.trips)).to.be.a("number");
-        expect(destination.getTotalCost(traveler1.trips)).to.equal(30338);
-        expect(destination.getTotalCost(traveler2.trips)).to.equal(20262);
+        expect(destination.getTotalCost(traveler1.trips)).to.be.a("string");
+        expect(destination.getTotalCost(traveler1.trips)).to.equal("30,338");
+        expect(destination.getTotalCost(traveler2.trips)).to.equal("20,262");
     });
     it('should get destination by id', function () {
         expect(destination.getDestinationByID(1)).to.be.an("object");

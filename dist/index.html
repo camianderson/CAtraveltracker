@@ -17,7 +17,8 @@
           <input id="inputUsername" type="text" value="" placeholder="user id" required></input>
           <input id="inputPassword" type="password" value="" placeholder="password" required></input>
           <button id="loginButton">login</button>
-        </form>  
+        </form>
+        <p id="errorLogin" aria-label="incorrect password"></p>
       </div>
     </section>
     <section class="top-page hidden" id="topPage">
@@ -50,7 +51,7 @@
         </div>
         <button class="form-button" aria-label="confirm new trip" id="formButton">Let's Go!</button>
       </container>
-      <p id="errorMessage"></p>
+      <p id="errorMessage" aria-label="fill all the inputs"></p>
       <p id="totalSpent">You've spent $0 on trips this year!</p>
     </section>
     <section class="bottom-page hidden" id="bottomPage">

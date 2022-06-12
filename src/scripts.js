@@ -1,7 +1,6 @@
 import './css/styles.css';
 import {getData, postData} from './apiCalls';
 import Traveler from './Traveler';
-import Trip from './Trip';
 import Destination from './Destination';
 
 // ****** Global Variables ******
@@ -82,7 +81,7 @@ function greetUser(){
 function updateTotalSpentOnTrips(date){
     currentTraveler.getUserTrips(tripsData);
     let dest = new Destination(destinationData);
-    let total = dest.getTotalCost(currentTraveler.trips);
+    let total = (dest.getTotalCost(currentTraveler.trips)).toLocaleString("en-US");
     totalSpent.innerText = `You've spent $${total} on trips this year!`
 }
 
@@ -92,8 +91,6 @@ function updateTotalSpentOnTripsNewTrip(){
   let total = dest.getTotalCost(currentTraveler.trips);
   const newTripTotal = dest.getTotalCost(currentTraveler.newTrip);
   let totalAfterNewTrip = (total + newTripTotal).toLocaleString("en-US");
-  console.log(totalAfterNewTrip)
-  // let total = currentTraveler.getTotalSpentTrips(destinationData, date);
   totalSpent.innerText = `You've spent $${totalAfterNewTrip} on trips this year!`
 }
 
@@ -194,7 +191,6 @@ function displayTrips() {
 
   function postNewTrip(){
     postData("trips", newTrip);
-    console.log(postData("trips", newTrip))
     currentTraveler.trips.push(newTrip);
     displayTrips();
     updateTotalSpentOnTripsNewTrip();

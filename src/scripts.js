@@ -55,8 +55,7 @@ function loadData () {
         travelerData = data[0].travelers;
         tripsData = data[1].trips;
         destinationData = data[2].destinations;
-        // validateLogin()
-        createTraveler(50);
+        createTraveler(1);
     });
 }
 
@@ -208,11 +207,12 @@ function displayTrips() {
   }
 
   function validateLogin(){
-    let user = inputUsername.value
+    let user = inputUsername.value;
+    user = parseInt(user[8]+user[9]);
     console.log(user)
-    if(inputPassword.value === "travel" && inputUsername.value === "traveler50"){
+    if(inputPassword.value === "travel" && inputUsername.value === `traveler${user}`){
       event.preventDefault();
-      createTraveler(2);
+      createTraveler(user);
       displayMainPage();
     } else{
       window.alert("Incorrect Username or Password! Try again")

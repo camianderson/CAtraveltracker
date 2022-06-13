@@ -4,6 +4,12 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Amatic+SC&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Shadows+Into+Light+Two&display=swap" rel="stylesheet">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Comic+Neue&display=swap" rel="stylesheet">
   <title>CA Travel Tracker</title>
 </head>
 <body>
@@ -15,7 +21,7 @@
         <form class="login-form">
           <input id="inputUsername" type="text" value="" placeholder="user id" required></input>
           <input id="inputPassword" type="password" value="" placeholder="password" required></input>
-          <button id="loginButton">login</button>
+          <button class="login-button" id="loginButton">Login</button>
         </form>
         <p id="errorLogin" aria-label="incorrect password"></p>
       </div>
@@ -48,7 +54,7 @@
             <select class="destination" name="destination" id="inputDestination"></select>
           </label>
         </div>
-        <button class="form-button" aria-label="confirm new trip" id="formButton">Let's Go!</button>
+        <button class="form-button" aria-label="confirm new trip" id="formButton">Submit</button>
       </container>
       <p id="errorMessage" aria-label="fill all the inputs"></p>
       <p id="totalSpent">You've spent $0 on trips this year!</p>

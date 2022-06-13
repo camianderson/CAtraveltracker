@@ -8,7 +8,7 @@ import travelersData from '../test/data/Traveler-sample-data.js';
 describe('Destination', () => {
     let destination;
     beforeEach(() => {
-      destination = new Destination(destinationData);
+        destination = new Destination(destinationData);
     });
     it('should be a function', function () {
         expect(Destination).to.be.a('function');
@@ -35,5 +35,4 @@ describe('Destination', () => {
         expect(destination.getDestinationByName("Stockholm, Sweden")).to.equal(destinationData[1]);
         expect(destination.getDestinationByName("Toronto, Canada")).to.equal(destinationData[9]);
     });
-
 })

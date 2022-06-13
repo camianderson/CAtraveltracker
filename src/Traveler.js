@@ -1,5 +1,3 @@
-import Destination from '../src/Destination';
-
 class Traveler{
     constructor(travelersData){
         this.id = travelersData.id;

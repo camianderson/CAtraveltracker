@@ -24,7 +24,7 @@ const inputDestination = document.getElementById('inputDestination');
 const formButton = document.getElementById('formButton');
 const newTripContainer = document.getElementById('newTripContainer');
 const newTripCard = document.getElementById('newTripCard');
-let confirmButton = document.getElementById('submitNewTrip');
+const confirmButton = document.getElementById('submitNewTrip');
 const cancelButton = document.getElementById('cancelButton');
 const errorMessage = document.getElementById('errorMessage');
 const loginPage = document.getElementById('loginPage');
@@ -37,14 +37,14 @@ const errorLogin = document.getElementById('errorLogin');
 
 // ****** event listener ******
 formButton.addEventListener('click', (event) => {
-  if(inputDate.value === '' || inputDestination.value === ''){
-    errorMessage.innerText = 'Fill all the spaces!';
-  } else{
-    event.preventDefault();
-    createNewTrip();
-    showNewTripRequest(newTrip);
-    errorMessage.innerText = '';
-  }
+    if(inputDate.value === '' || inputDestination.value === ''){
+        errorMessage.innerText = 'Fill all the spaces!';
+    } else{
+        event.preventDefault();
+        createNewTrip();
+        showNewTripRequest(newTrip);
+        errorMessage.innerText = '';
+    }
 });
 confirmButton.addEventListener('click', postNewTrip);
 cancelButton.addEventListener('click', cancelNewTrip);
@@ -52,25 +52,25 @@ loginButton.addEventListener('click', validateLogin);
 
 // ****** functions ******
 function displayData(){
-  getAll()
-  .then(data => {
-    tripsData = data[0].trips;
-    travelerData = data[1].travelers;
-    destinationData = data[2].destinations;
-    createTraveler(1);
-  })
-  .catch((error) => console.log(`There has been an error! ${error}`));
+    getAll()
+    .then(data => {
+        tripsData = data[0].trips;
+        travelerData = data[1].travelers;
+        destinationData = data[2].destinations;
+        createTraveler(1);
+    })
+    .catch((error) => console.log(`There has been an error! ${error}`));
 }
 
 export function updateData(){
-  getAll()
-  .then(data => {
-    tripsData = data[0].trips;
-    travelerData = data[1].travelers;
-    destinationData = data[2].destinations;
-    clearNewTripForm();
-    updateTotalSpentOnTripsNewTrip();
-  })
+    getAll()
+    .then(data => {
+        tripsData = data[0].trips;
+        travelerData = data[1].travelers;
+        destinationData = data[2].destinations;
+        clearNewTripForm();
+        updateTotalSpentOnTripsNewTrip();
+    })
     .catch((error) => console.log(`There has been an error! ${error}`));
 }
 
@@ -88,10 +88,10 @@ function greetUser(){
     welcomeGreeting.innerText = `Welcome ${traveler}! Where do you want to go next?`;
     let date = new Date();
     todayDate = [date.getFullYear(), date.getMonth()+1, date.getDate()].join('/');
-    updateTotalSpentOnTrips(todayDate);
+    updateTotalSpentOnTrips();
 }
 
-function updateTotalSpentOnTrips(date){
+function updateTotalSpentOnTrips(){
     currentTraveler.getUserTrips(tripsData);
     let dest = new Destination(destinationData);
     let total = (dest.getTotalCost(currentTraveler.trips)).toLocaleString("en-US");
@@ -99,18 +99,18 @@ function updateTotalSpentOnTrips(date){
 }
 
 function updateTotalSpentOnTripsNewTrip(){
-  currentTraveler.getUserTrips(tripsData);
-  let dest = new Destination(destinationData);
-  let total = dest.getTotalCost(currentTraveler.trips);
-  const newTripTotal = dest.getTotalCost(currentTraveler.newTrip);
-  let totalAfterNewTrip = (total + newTripTotal).toLocaleString("en-US");
-  totalSpent.innerText = `You've spent $${totalAfterNewTrip} on trips this year!`
+    currentTraveler.getUserTrips(tripsData);
+    let dest = new Destination(destinationData);
+    let total = dest.getTotalCost(currentTraveler.trips);
+    const newTripTotal = dest.getTotalCost(currentTraveler.newTrip);
+    let totalAfterNewTrip = (total + newTripTotal).toLocaleString("en-US");
+    totalSpent.innerText = `You've spent $${totalAfterNewTrip} on trips this year!`;
 }
 
 function displayTrips() {
     tripCards.innerHTML = "";
     const sortedTrips = currentTraveler.trips.sort(
-      (first, last) => new Date(last.date) - new Date(first.date)
+       (first, last) => new Date(last.date) - new Date(first.date)
     );
     sortedTrips.forEach((trip) => {
         destinationData.forEach((location) => {
@@ -134,14 +134,14 @@ function displayTrips() {
     });
   }
 
-  function populateOptions() {
+function populateOptions() {
     inputDestination.innerHTML = `<option value="" disabled selected>Select a destination</option>`;
     destinationData.forEach((place) => {
-      inputDestination.innerHTML += `<option value="${place.id}" >${place.destination}</option>`;
+      inputDestination.innerHTML += `<option value="${place.id}">${place.destination}</option>`;
     });
-  }
+}
 
-  function createNewTrip(){
+function createNewTrip(){
     let date = inputDate.value;
     const duration = inputDuration.value;
     const travelers = inputTravelers.value;
@@ -159,32 +159,32 @@ function displayTrips() {
         suggestedActivities: []
         };
     newTrip = info;
-  }
+}
 
-  function showNewTripRequest() {
-    displayNewTripContainer()
-    createNewTripCard()
-  }
+function showNewTripRequest() {
+    displayNewTripContainer();
+    createNewTripCard();
+}
 
-  function displayNewTripCost() {
+function displayNewTripCost() {
     return currentTraveler.createNewTripValue(newTrip, destinationData);
-  }
+}
 
-  function displayNewTripContainer(){
+function displayNewTripContainer(){
     tripCards.classList.add('hidden');
     newTripContainer.classList.remove('hidden');
-  }
+}
 
-  function displayCardsContainer(){
+function displayCardsContainer(){
     tripCards.classList.remove('hidden');
     newTripContainer.classList.add('hidden');
-  }
+}
 
-  function createNewTripCard(){
+function createNewTripCard(){
     destinationData.forEach((place) => {
         if (newTrip.destinationID === place.id) {
           let color = newTrip.status === "approved" ? "teal" : "pink";
-          const cost = displayNewTripCost()
+          const cost = displayNewTripCost();
           newTripCard.innerHTML = `
           <div class="card-no-hover" tabindex="0" id="${newTrip.id}">
             <div class="card-header">
@@ -200,34 +200,34 @@ function displayTrips() {
           </div>`;
         }
     })
-  }
+}
 
-  function postNewTrip(){
+function postNewTrip(){
     postData(newTrip);
     currentTraveler.trips.push(newTrip);
     displayTrips();
     displayCardsContainer();
-  }
+}
 
-  function cancelNewTrip(){
+function cancelNewTrip(){
     clearNewTripForm();
     displayCardsContainer();
-  }
+}
 
-  function clearNewTripForm(){
+function clearNewTripForm(){
     inputDate.value = '';
     inputDuration.value = 1;
     inputTravelers.value = 1;
     inputDestination.value ='';
-  }
+}
 
-  function displayMainPage(){
+function displayMainPage(){
     loginPage.classList.add('hidden');
     topMainPage.classList.remove('hidden');
     bottomMainPage.classList.remove('hidden');
-  }
+}
 
-  function validateLogin(){
+function validateLogin(){
     let user = inputUsername.value;
     userId = parseInt(user[8]+user[9]);
     if(inputPassword.value === "travel" && inputUsername.value === `traveler${userId}`){
@@ -238,4 +238,4 @@ function displayTrips() {
       event.preventDefault();
       errorLogin.innerText = "Incorrect Username or Password! Try again!"
     }
-  }
+}

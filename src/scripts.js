@@ -1,5 +1,5 @@
 import './css/styles.css';
-import {getData, postData} from './apiCalls';
+import {getAll, postData} from './apiCalls';
 import Traveler from './Traveler';
 import Destination from './Destination';
 
@@ -13,7 +13,7 @@ var userId;
 var todayDate;
 
 // ****** query selector ******
-window.addEventListener('load', loadData);
+window.addEventListener('load', displayData);
 const welcomeGreeting = document.getElementById('welcome');
 const totalSpent = document.getElementById('totalSpent');
 const tripCards = document.getElementById('tripsCards');
@@ -24,7 +24,7 @@ const inputDestination = document.getElementById('inputDestination');
 const formButton = document.getElementById('formButton');
 const newTripContainer = document.getElementById('newTripContainer');
 const newTripCard = document.getElementById('newTripCard');
-const confirmButton = document.getElementById('submitNewTrip');
+let confirmButton = document.getElementById('submitNewTrip');
 const cancelButton = document.getElementById('cancelButton');
 const errorMessage = document.getElementById('errorMessage');
 const loginPage = document.getElementById('loginPage');
@@ -50,17 +50,30 @@ confirmButton.addEventListener('click', postNewTrip);
 cancelButton.addEventListener('click', cancelNewTrip);
 loginButton.addEventListener('click', validateLogin);
 
-// ****** fetch GET ******
-function loadData () {
-    Promise.all([getData('travelers'), getData('trips'), getData('destinations')]).then(data => {
-        travelerData = data[0].travelers;
-        tripsData = data[1].trips;
-        destinationData = data[2].destinations;
-        createTraveler(1);
-    });
+// ****** functions ******
+function displayData(){
+  getAll()
+  .then(data => {
+    tripsData = data[0].trips;
+    travelerData = data[1].travelers;
+    destinationData = data[2].destinations;
+    createTraveler(1);
+  })
+  .catch((error) => console.log(`There has been an error! ${error}`));
 }
 
-// ****** functions ******
+export function updateData(){
+  getAll()
+  .then(data => {
+    tripsData = data[0].trips;
+    travelerData = data[1].travelers;
+    destinationData = data[2].destinations;
+    clearNewTripForm();
+    updateTotalSpentOnTripsNewTrip();
+  })
+    .catch((error) => console.log(`There has been an error! ${error}`));
+}
+
 function createTraveler(id){
     const traveler = travelerData.find(traveler => traveler.id === id);
     currentTraveler = new Traveler(traveler);
@@ -190,11 +203,9 @@ function displayTrips() {
   }
 
   function postNewTrip(){
-    postData("trips", newTrip);
+    postData(newTrip);
     currentTraveler.trips.push(newTrip);
     displayTrips();
-    updateTotalSpentOnTripsNewTrip();
-    clearNewTripForm();
     displayCardsContainer();
   }
 

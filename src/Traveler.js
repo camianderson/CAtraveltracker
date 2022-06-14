@@ -8,8 +8,12 @@ class Traveler{
     }
 
     displayFirstName = () => {
+        if(this.name === "undefined"){
+            return "This user does not have a name in the system";
+        } else {
         const firstName = this.name.split(" ");
         return firstName[0];
+        }
     }
 
     getUserTrips = (tripsData) => {

@@ -45,6 +45,7 @@ describe('Traveler', () => {
         expect(traveler1.displayFirstName()).to.be.a("string");
         expect(traveler1.displayFirstName()).to.equal("Ham");
         expect(traveler2.displayFirstName()).to.equal("Sibby");
+        expect(traveler3.displayFirstName()).to.equal("This user does not have a name in the system");
     });
     it('should get all users trips', function () {
         traveler1.getUserTrips(tripsData);

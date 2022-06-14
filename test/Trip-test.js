@@ -5,9 +5,11 @@ import tripsData from '../test/data/Trip-sample-data.js';
 describe('Trip', () => {
     let trip1;
     let trip2;
+    let trip3;
     beforeEach(() => {
       trip1 = new Trip(tripsData[0]);
       trip2 = new Trip(tripsData[8]);
+      trip3 = new Trip(tripsData[2])
     })
     it('should be a function', function () {
       expect(Trip).to.be.a('function');
@@ -46,6 +48,7 @@ describe('Trip', () => {
         expect(trip1.status).to.be.a("string");
         expect(trip1.status).to.equal("approved");
         expect(trip2.status).to.equal("approved");
+        expect(trip3.status).to.equal("pending");
     });
     it('should have suggested activities', function () {
         expect(trip1.suggestedActivities).to.be.a("array");

@@ -26,7 +26,7 @@ const travelersData = [
     },
     {
     "id": 6,
-    "name": "Laverna Flawith",
+    "name": "undefined",
     "travelerType": "shopper"
     },
     {

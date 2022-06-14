@@ -91,20 +91,28 @@ function greetUser(){
     updateTotalSpentOnTrips();
 }
 
+function getCurrentYearTrips(){
+  const yearStart = `20${todayDate[2] + todayDate[3]}/01/01`;
+  const yearEnd = `20${todayDate[2] + todayDate[3]}/12/31`;
+  return currentTraveler.getTripsBetweenDates(yearStart, yearEnd);
+}
+
 function updateTotalSpentOnTrips(){
-    currentTraveler.getUserTrips(tripsData);
-    let dest = new Destination(destinationData);
-    let total = (dest.getTotalCost(currentTraveler.trips)).toLocaleString("en-US");
-    totalSpent.innerText = `You've spent $${total} on trips this year!`
+  currentTraveler.getUserTrips(tripsData);
+  let dest = new Destination(destinationData);
+  const tripsInCurrentYear = getCurrentYearTrips();
+  let total = (dest.getTotalCost(tripsInCurrentYear)).toLocaleString("en-US");
+  totalSpent.innerText = `You've spent $${total} on trips this year!`;
 }
 
 function updateTotalSpentOnTripsNewTrip(){
-    currentTraveler.getUserTrips(tripsData);
-    let dest = new Destination(destinationData);
-    let total = dest.getTotalCost(currentTraveler.trips);
-    const newTripTotal = dest.getTotalCost(currentTraveler.newTrip);
-    let totalAfterNewTrip = (total + newTripTotal).toLocaleString("en-US");
-    totalSpent.innerText = `You've spent $${totalAfterNewTrip} on trips this year!`;
+  currentTraveler.getUserTrips(tripsData);
+  let dest = new Destination(destinationData);
+  const tripsInCurrentYear = getCurrentYearTrips();
+  let total = dest.getTotalCost(tripsInCurrentYear);
+  const newTripTotal = dest.getTotalCost(currentTraveler.newTrip);
+  let totalAfterNewTrip = (total + newTripTotal).toLocaleString("en-US");
+  totalSpent.innerText = `You've spent $${totalAfterNewTrip} on trips this year!`;
 }
 
 function displayTrips() {

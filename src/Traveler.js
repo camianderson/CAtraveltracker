@@ -34,6 +34,16 @@ class Traveler{
         const sortedTripData = tripsData.sort((lower, higher) => higher.id - lower.id);
         return sortedTripData[0].id;
     }
+
+    getTripsBetweenDates(date1, date2) {
+        const start = date1;
+        const end = date2;
+        const tripsBetweenDates = this.trips.filter((trip) => {
+            let tripDate = trip.date;
+            return tripDate > start && tripDate < end;
+        });
+        return tripsBetweenDates;
+    }
 }
 
 export default Traveler;

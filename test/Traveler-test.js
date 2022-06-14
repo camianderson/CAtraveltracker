@@ -84,4 +84,11 @@ describe('Traveler', () => {
         expect(traveler3.findLastTripId(traveler3.trips)).to.equal(13);
         expect(traveler4.findLastTripId(traveler4.trips)).to.equal(16);
     });
+    it('should get trips in between dates', function () {
+        traveler3.getUserTrips(tripsData);
+        traveler4.getUserTrips(tripsData);
+        expect(traveler3.getTripsBetweenDates("2022/05/31", "2022/06/31")).to.be.an("array");
+        expect(traveler3.getTripsBetweenDates("2022/05/31", "2022/06/31")).to.deep.equal([traveler3.trips[1]]);
+        expect(traveler4.getTripsBetweenDates("2022/05/31", "2022/06/31")).to.deep.equal([traveler4.trips[0]]);
+    });
 })

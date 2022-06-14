@@ -7,16 +7,16 @@ class Traveler{
         this.newTrip = [];
     }
 
-    displayFirstName(){
+    displayFirstName = () => {
         const firstName = this.name.split(" ");
         return firstName[0];
     }
 
-    getUserTrips(tripsData) {
+    getUserTrips = (tripsData) => {
         this.trips = tripsData.filter((trip) => trip.userID === this.id);
     }
 
-    createNewTripValue(newTripInfo, destinationData) {
+    createNewTripValue = (newTripInfo, destinationData) => {
         this.newTrip.push(newTripInfo);
         let subTotal = destinationData.reduce((sum, place) => {
           if (newTripInfo.destinationID === place.id) {
@@ -30,12 +30,12 @@ class Traveler{
         return result.toFixed(2);
     }
 
-    findLastTripId(tripsData){
+    findLastTripId = (tripsData) => {
         const sortedTripData = tripsData.sort((lower, higher) => higher.id - lower.id);
         return sortedTripData[0].id;
     }
 
-    getTripsBetweenDates(date1, date2) {
+    getTripsBetweenDates = (date1, date2) => {
         const start = date1;
         const end = date2;
         const tripsBetweenDates = this.trips.filter((trip) => {

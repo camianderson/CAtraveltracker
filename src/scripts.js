@@ -12,8 +12,7 @@ var newTrip;
 var userId;
 var todayDate;
 
-// ****** query selector ******
-window.addEventListener('load', displayData);
+// // ****** query selector ******
 const welcomeGreeting = document.getElementById('welcome');
 const totalSpent = document.getElementById('totalSpent');
 const tripCards = document.getElementById('tripsCards');
@@ -35,23 +34,8 @@ const inputPassword = document.getElementById('inputPassword');
 const loginButton = document.getElementById('loginButton');
 const errorLogin = document.getElementById('errorLogin');
 
-// ****** event listener ******
-formButton.addEventListener('click', (event) => {
-    if(inputDate.value === '' || inputDestination.value === ''){
-        errorMessage.innerText = 'Fill all the spaces!';
-    } else{
-        event.preventDefault();
-        createNewTrip();
-        showNewTripRequest(newTrip);
-        errorMessage.innerText = '';
-    }
-});
-confirmButton.addEventListener('click', postNewTrip);
-cancelButton.addEventListener('click', cancelNewTrip);
-loginButton.addEventListener('click', validateLogin);
-
 // ****** functions ******
-function displayData(){
+const displayData = () => {
     getAll()
     .then(data => {
         tripsData = data[0].trips;
@@ -62,7 +46,7 @@ function displayData(){
     .catch((error) => console.log(`There has been an error! ${error}`));
 }
 
-export function updateData(){
+export const updateData = () => {
     getAll()
     .then(data => {
         tripsData = data[0].trips;
@@ -74,7 +58,7 @@ export function updateData(){
     .catch((error) => console.log(`There has been an error! ${error}`));
 }
 
-function createTraveler(id){
+const createTraveler = (id) => {
     const traveler = travelerData.find(traveler => traveler.id === id);
     currentTraveler = new Traveler(traveler);
     greetUser();
@@ -83,7 +67,7 @@ function createTraveler(id){
     currentTraveler.findLastTripId(tripsData);
 }
 
-function greetUser(){
+const greetUser = () => {
     const traveler = currentTraveler.displayFirstName();
     welcomeGreeting.innerText = `Welcome ${traveler}! Where do you want to go next?`;
     let date = new Date();
@@ -91,13 +75,13 @@ function greetUser(){
     updateTotalSpentOnTrips();
 }
 
-function getCurrentYearTrips(){
+const getCurrentYearTrips = () => {
   const yearStart = `20${todayDate[2] + todayDate[3]}/01/01`;
   const yearEnd = `20${todayDate[2] + todayDate[3]}/12/31`;
   return currentTraveler.getTripsBetweenDates(yearStart, yearEnd);
 }
 
-function updateTotalSpentOnTrips(){
+const updateTotalSpentOnTrips = () => {
   currentTraveler.getUserTrips(tripsData);
   let dest = new Destination(destinationData);
   const tripsInCurrentYear = getCurrentYearTrips();
@@ -105,7 +89,7 @@ function updateTotalSpentOnTrips(){
   totalSpent.innerText = `You've spent $${total} on trips this year!`;
 }
 
-function updateTotalSpentOnTripsNewTrip(){
+const updateTotalSpentOnTripsNewTrip = () => {
   currentTraveler.getUserTrips(tripsData);
   let dest = new Destination(destinationData);
   const tripsInCurrentYear = getCurrentYearTrips();
@@ -115,7 +99,7 @@ function updateTotalSpentOnTripsNewTrip(){
   totalSpent.innerText = `You've spent $${totalAfterNewTrip} on trips this year!`;
 }
 
-function displayTrips() {
+const displayTrips = () => {
     tripCards.innerHTML = "";
     const sortedTrips = currentTraveler.trips.sort(
        (first, last) => new Date(last.date) - new Date(first.date)
@@ -142,14 +126,14 @@ function displayTrips() {
     });
   }
 
-function populateOptions() {
+const populateOptions = () => {
     inputDestination.innerHTML = `<option value="" disabled selected>Select a destination</option>`;
     destinationData.forEach((place) => {
       inputDestination.innerHTML += `<option value="${place.id}">${place.destination}</option>`;
     });
 }
 
-function createNewTrip(){
+const createNewTrip = () => {
     let date = inputDate.value;
     const duration = inputDuration.value;
     const travelers = inputTravelers.value;
@@ -169,26 +153,26 @@ function createNewTrip(){
     newTrip = info;
 }
 
-function showNewTripRequest() {
+const showNewTripRequest = () => {
     displayNewTripContainer();
     createNewTripCard();
 }
 
-function displayNewTripCost() {
+const displayNewTripCost = () => {
     return currentTraveler.createNewTripValue(newTrip, destinationData);
 }
 
-function displayNewTripContainer(){
+const displayNewTripContainer = () => {
     tripCards.classList.add('hidden');
     newTripContainer.classList.remove('hidden');
 }
 
-function displayCardsContainer(){
+const displayCardsContainer = () => {
     tripCards.classList.remove('hidden');
     newTripContainer.classList.add('hidden');
 }
 
-function createNewTripCard(){
+const createNewTripCard = () => {
     destinationData.forEach((place) => {
         if (newTrip.destinationID === place.id) {
           let color = newTrip.status === "approved" ? "teal" : "pink";
@@ -210,32 +194,32 @@ function createNewTripCard(){
     })
 }
 
-function postNewTrip(){
+const postNewTrip = () => {
     postData(newTrip);
     currentTraveler.trips.push(newTrip);
     displayTrips();
     displayCardsContainer();
 }
 
-function cancelNewTrip(){
+const cancelNewTrip = () => {
     clearNewTripForm();
     displayCardsContainer();
 }
 
-function clearNewTripForm(){
+const clearNewTripForm = () => {
     inputDate.value = '';
     inputDuration.value = 1;
     inputTravelers.value = 1;
     inputDestination.value ='';
 }
 
-function displayMainPage(){
+const displayMainPage = () => {
     loginPage.classList.add('hidden');
     topMainPage.classList.remove('hidden');
     bottomMainPage.classList.remove('hidden');
 }
 
-function validateLogin(){
+const validateLogin = () => {
     let user = inputUsername.value;
     userId = parseInt(user[8]+user[9]);
     if(inputPassword.value === "travel" && inputUsername.value === `traveler${userId}`){
@@ -247,3 +231,20 @@ function validateLogin(){
       errorLogin.innerText = "Incorrect Username or Password! Try again!"
     }
 }
+
+
+// ****** event listener ******
+window.addEventListener('load', displayData);
+formButton.addEventListener('click', (event) => {
+  if(inputDate.value === '' || inputDestination.value === ''){
+      errorMessage.innerText = 'Fill all the spaces!';
+  } else{
+      event.preventDefault();
+      createNewTrip();
+      showNewTripRequest(newTrip);
+      errorMessage.innerText = '';
+  }
+});
+confirmButton.addEventListener('click', postNewTrip);
+cancelButton.addEventListener('click', cancelNewTrip);
+loginButton.addEventListener('click', validateLogin);

@@ -222,10 +222,12 @@ const displayMainPage = () => {
 const validateLogin = () => {
     let user = inputUsername.value;
     userId = parseInt(user[8]+user[9]);
-    if(inputPassword.value === "travel" && inputUsername.value === `traveler${userId}`){
+    if(inputPassword.value === "travel" && 0 < userId && userId < 51 &&  inputUsername.value === `traveler${userId}`){
       event.preventDefault();
       createTraveler(userId);
       displayMainPage();
+    } else if (inputPassword.value === '' || inputUsername.value === '') {
+      errorLogin.innerText = "Please fill out all the fields."
     } else {
       event.preventDefault();
       errorLogin.innerText = "Incorrect Username or Password! Try again!"

@@ -3,7 +3,7 @@ class Destination {
         this.destinations = destinationData;
     }
 
-    getTotalCost(trips) {
+    getTotalCost = (trips) => {
         const totalCost = trips.reduce((acc, trip) => {
             this.destinations.forEach((destination) => {
                 if(destination.id === trip.destinationID) {
@@ -18,12 +18,12 @@ class Destination {
         return totalCost;
     }
 
-    getDestinationByID(destinationId) {
+    getDestinationByID = (destinationId) => {
         const destination = this.destinations.find((destination) => destination.id === destinationId);
         return destination;
     }
 
-    getDestinationByName(destinationName) {
+    getDestinationByName = (destinationName) => {
         const destination = this.destinations.find((destination) => destination.destination === destinationName);
         return destination;
     }
